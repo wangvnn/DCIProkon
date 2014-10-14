@@ -1,0 +1,61 @@
+﻿<Window x:Class="ProkonDCI.Presentation.View.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" Height="350" Width="525">
+    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>            
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Border Grid.Column="0" Grid.Row="0" BorderBrush="Black" BorderThickness="1">
+            <TextBlock xml:space="preserve">
+                <TextBlock.Text>
+Prokon:
+Planning System
+                </TextBlock.Text>
+            </TextBlock>
+        </Border>
+        <Border Grid.Column="0" Grid.Row="1" Grid.RowSpan="2" BorderBrush="Black" BorderThickness="1">
+            <TextBlock>
+                <TextBlock.Text>
+                    Selected Activity:
+                </TextBlock.Text>
+            </TextBlock>
+        </Border>
+        <Border Grid.Column="1" Grid.Row="0" 
+                BorderBrush="Black" BorderThickness="1"
+                HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.ColumnSpan="4">
+            <StackPanel>
+                <Button Content="Text"
+                        Command="{Binding AddActivityCommand}"/>
+                <Canvas HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+
+                </Canvas>
+            </StackPanel>
+        </Border>
+        <Border Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="4" BorderBrush="Black" BorderThickness="1">
+            <TextBlock xml:space="preserve">
+                <TextBlock.Text>
+                    Prokon:
+Planning System
+                </TextBlock.Text>
+            </TextBlock>
+        </Border>
+        <Border Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="4" BorderBrush="Black" BorderThickness="1">
+            <TextBlock xml:space="preserve">
+                <TextBlock.Text>
+                    Prokon:
+Planning System
+                </TextBlock.Text>
+            </TextBlock>
+        </Border>
+    </Grid>
+</Window>
