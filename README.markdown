@@ -1,3 +1,9 @@
+This is a port of DCI Prokon Example from Smalltalk:
+http://fulloo.info/Examples/SqueakExamples/BB10Planning/index.html
+
+Using DCI Lib from: 
+https://github.com/ciscoheat/ivento-dci
+
 Ivento-DCI is a library for developing C# applications using the DCI programming paradigm.
 
 Right now the documentation is in the examples, so browse to src\Ivento.Dci.Examples.MoneyTransfer\Program.cs for getting started.
