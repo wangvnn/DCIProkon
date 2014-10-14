@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 
 namespace ProkonDCI.Domain.Data
@@ -47,7 +48,7 @@ namespace ProkonDCI.Domain.Data
             if (_activityPositions.ContainsKey(name))
                 return _activityPositions[name];
             else
-                return new Point(-1,-1);
+                return new Point(0,0);
         }
 
         public List<Dependancy> DependanciesFromActivity(Activity activity)
@@ -106,5 +107,6 @@ namespace ProkonDCI.Domain.Data
         private List<Dependancy> _dependancies = new List<Dependancy>();
         private Resource _resource = new Resource();
 #       endregion
+
     }
 }

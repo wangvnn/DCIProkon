@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProkonDCI", "ProkonDCI\Prok
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProkonDCI.Test", "ProkonDCI.Test\ProkonDCI.Test.csproj", "{039BBE9D-B522-43BF-A16E-41F585CD7574}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestWPF", "TestWPF\TestWPF.csproj", "{C6D9D041-2641-4775-AFA5-460F9B3BFBA0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -85,6 +87,16 @@ Global
 		{039BBE9D-B522-43BF-A16E-41F585CD7574}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{039BBE9D-B522-43BF-A16E-41F585CD7574}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{039BBE9D-B522-43BF-A16E-41F585CD7574}.Release|x86.ActiveCfg = Release|Any CPU
+		{C6D9D041-2641-4775-AFA5-460F9B3BFBA0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6D9D041-2641-4775-AFA5-460F9B3BFBA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6D9D041-2641-4775-AFA5-460F9B3BFBA0}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{C6D9D041-2641-4775-AFA5-460F9B3BFBA0}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{C6D9D041-2641-4775-AFA5-460F9B3BFBA0}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C6D9D041-2641-4775-AFA5-460F9B3BFBA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6D9D041-2641-4775-AFA5-460F9B3BFBA0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C6D9D041-2641-4775-AFA5-460F9B3BFBA0}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{C6D9D041-2641-4775-AFA5-460F9B3BFBA0}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{C6D9D041-2641-4775-AFA5-460F9B3BFBA0}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

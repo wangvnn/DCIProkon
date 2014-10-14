@@ -1,5 +1,6 @@
 ﻿using Ivento.Dci;
 using ProkonDCI.Domain.Data;
+using ProkonDCI.Presentation.View;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -56,6 +57,14 @@ namespace ProkonDCI.SystemOperation
         public interface ActivityRepositoryRole
         {
             void AddActivity(Activity activity);
+            void ActivityPositionFor(Activity activity, Point p);
+        }
+
+        internal ActivityViewerRole ActivityViewer { get; private set; }
+
+        public interface ActivityViewerRole
+        {
+            void AddActivity(Activity activity);
         }
 
         #endregion
@@ -69,19 +78,20 @@ namespace ProkonDCI.SystemOperation
 
         // The constructor(s) should be strongly typed to check for errors.
 
-        public AddActivityOperation(ActivityRepositoryRole repository, ActivityInfoFormRole form)
+        public AddActivityOperation(ActivityRepositoryRole repository, ActivityViewerRole viewer)
         {
-            BindRoles(repository, form);
+            BindRoles(repository, viewer);
         }
 
         // The BindRoles method however, should use object so anything can be sent here
         // from the constructors, then casted to the RoleInterface.
 
-        private void BindRoles(ActivityRepositoryRole repository, ActivityInfoFormRole form)
+        private void BindRoles(ActivityRepositoryRole repository, ActivityViewerRole viewer)
         {
             // Make the RolePlayers act the Roles they are supposed to.
-            ActivityRepository = (ActivityRepositoryRole)repository;
-            ActivityInfoForm = (ActivityInfoFormRole)form;
+            ActivityRepository = repository;
+            ActivityInfoForm = (ActivityInfoFormRole)(new ActivityInfoDialog());
+            ActivityViewer = viewer;
          }
 
         #endregion
@@ -95,12 +105,13 @@ namespace ProkonDCI.SystemOperation
         {
             // Use case: User adds a new activity
             // Steps: User vs System
-            // 1. User wants to add new Activity
+            // 1. User wants to add new Activity (trigger)
             //    2. System asks User to provide Activity's Info
             // 3. User provides Activity Info
-            //    4. System records Activity Info
-            //    5. System displays Activity on Screen
-            Context.Execute(ActivityInfoForm.Ask, this);
+            //    4. System creates new Activity from the info
+            //    5. ActivityRepository stores new Activity
+            //    6. ActivityViewer displays Activity on Screen
+            Context.Execute(ActivityInfoForm.AskForInfo, this);
         }
 
         #endregion
@@ -113,7 +124,7 @@ namespace ProkonDCI.SystemOperation
     // have one RoleMethod, "Ask".
     static class ActivityInfoFormRoleMethos
     {
-        public static void Ask(this AddActivityOperation.ActivityInfoFormRole activityInfoForm)
+        public static void AskForInfo(this AddActivityOperation.ActivityInfoFormRole activityInfoForm)
         {
             // First get a reference to the context/operation, AddActivity.
             // The two parameters are a sanity check that the extension parameter for 
@@ -138,11 +149,22 @@ namespace ProkonDCI.SystemOperation
             {
                 var d = sender as AddActivityOperation.ActivityInfoFormRole;
     
-                var newActivity = d.GetActivity();
-                if (newActivity != null)
+                try
                 {
-                    c.ActivityRepository.AddActivity(newActivity);
-                }                
+                    var newActivity = d.GetActivity();
+                    if (newActivity != null)
+                    {
+                        c.ActivityRepository.AddActivity(newActivity);
+                        c.ActivityRepository.ActivityPositionFor(newActivity, new Point(50,50));
+                        c.ActivityViewer.AddActivity(newActivity);
+                    } 
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Bad data info to create activity.");
+                    Console.WriteLine("Error::" + ex.Message);
+                }
+               
             };
         }
     }

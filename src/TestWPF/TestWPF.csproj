@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{7AD0F014-F57B-4484-8024-DC1A31F38ECC}</ProjectGuid>
+    <ProjectGuid>{C6D9D041-2641-4775-AFA5-460F9B3BFBA0}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ProkonDCI</RootNamespace>
-    <AssemblyName>ProkonDCI</AssemblyName>
+    <RootNamespace>TestWPF</RootNamespace>
+    <AssemblyName>TestWPF</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -53,11 +53,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="Presentation\View\ActivityInfoDialog.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Presentation\View\MainWindow.xaml">
+    <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -65,26 +61,12 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Domain\Data\Activity.cs" />
-    <Compile Include="Domain\Data\ActivityDependencyGraph.cs" />
-    <Compile Include="Domain\Data\CommonTypes.cs" />
-    <Compile Include="Domain\Data\Dependancy.cs" />
-    <Compile Include="Domain\Data\Resource.cs" />
-    <Compile Include="Presentation\ViewModel\ActivityDependancyViewModel.cs" />
-    <Compile Include="Presentation\ViewModel\DependancyViewModel.cs" />
-    <Compile Include="Presentation\ViewModel\ActivityViewModel.cs" />
-    <Compile Include="Presentation\View\ActivityInfoDialog.xaml.cs">
-      <DependentUpon>ActivityInfoDialog.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="SystemOperation\AddActivityOperation.cs" />
-    <Compile Include="Presentation\View\MainWindow.xaml.cs">
+    <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Infrastructure\WPF\DelegateCommand.cs" />
-    <Compile Include="Infrastructure\WPF\ObservableObject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -110,15 +92,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Domain\Operation\" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Ivento.Dci\Ivento.Dci.csproj">
-      <Project>{36548bcd-2e27-4f85-9e02-3d742b4ea9c0}</Project>
-      <Name>Ivento.Dci</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

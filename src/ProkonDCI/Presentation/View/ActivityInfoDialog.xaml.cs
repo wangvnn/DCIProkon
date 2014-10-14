@@ -49,10 +49,11 @@ namespace ProkonDCI.Presentation.View
 
         public Activity GetActivity()
         {
-            if (Canceled)
-                return null;
-            else
+            if (!Canceled)
+            {
                 return new Activity(NameInput.Text, int.Parse(DurationInput.Text), int.Parse(ResourceRequirementInput.Text));
+            }
+            return null;
         }
     }
 }
