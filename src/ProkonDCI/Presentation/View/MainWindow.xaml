@@ -1,6 +1,8 @@
 ﻿<Window x:Class="ProkonDCI.Presentation.View.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:behaviour="clr-namespace:ProkonDCI.Presentation.UIBehaviours"   
+        xmlns:jas="clr-namespace:WPF.JoshSmith.Panels;assembly=WPF.JoshSmith"  
         Title="MainWindow" Height="1080" Width="1920">
     <Window.Resources>
 
@@ -27,7 +29,16 @@
             </x:XData>
 
         </XmlDataProvider>
-
+        <Style x:Key="NodeBorderStyle" TargetType="{x:Type Border}">
+            <Setter Property="Background" Value="LightGreen" />
+            <Setter Property="BorderBrush" Value="Gray" />
+            <Setter Property="BorderThickness" Value="3" />
+            <Setter Property="BorderBrush" Value="Gray" />
+            <Setter Property="Height" Value="{Binding Path=NodeHeight, Mode=OneTime}" />
+            <Setter Property="Padding" Value="4" />
+            <Setter Property="TextElement.FontWeight" Value="Normal" />
+            <Setter Property="Width" Value="{Binding Path=NodeWidth, Mode=OneTime}" />
+        </Style>
     </Window.Resources>
     <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
         <Grid.ColumnDefinitions>
@@ -61,36 +72,49 @@ Planning System
                 BorderBrush="Black" BorderThickness="1"
                 HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.ColumnSpan="4">
             <StackPanel>
-                <Button Content="Text"
-                        Command="{Binding AddActivityCommand}"/>
-                <ListBox ItemsSource="{Binding Activities}"
+               
+                <ItemsControl Background="LightGray"  ItemsSource="{Binding Path=Activities, Mode=OneTime}"
                          Height="500"
                          HorizontalAlignment="Stretch"
                          VerticalAlignment="Stretch">
-                    <ListBox.ItemTemplate>
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <jas:DragCanvas x:Name="pageCanvas" Margin="0" 
+                                            HorizontalAlignment="Stretch" 
+                                            VerticalAlignment="Stretch" 
+                                            Background="Cyan">
+                                <jas:DragCanvas.ContextMenu>
+                                    <ContextMenu x:Name="pageCanvasContextMenu"
+                                                 behaviour:TrackMouseBehaviour.TrackOpenLocation="True">
+                                        <MenuItem x:Name="addTextBoxMenuItem"  Header="Add Activity" 
+                                                  Command="{Binding AddActivityCommand}"
+                                                  CommandParameter="{Binding Path=(behaviour:TrackMouseBehaviour.OpenLocation), RelativeSource={RelativeSource AncestorType=ContextMenu}}"/>
+                                    </ContextMenu>
+                                </jas:DragCanvas.ContextMenu>
+                            </jas:DragCanvas>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <Border Width="100" Height="20" BorderBrush="Black" BorderThickness="1">
-                                <TextBlock Foreground="Black"  Text="{Binding Path=Name}" />
+                            <Border Style="{StaticResource NodeBorderStyle}">
+                                <TextBlock 
+                                FontSize="18"
+                                HorizontalAlignment="Center"               
+                                VerticalAlignment="Center" 
+                                Text="{Binding Path=Name, Mode=OneTime}" 
+                                TextAlignment="Center" 
+                                />
                             </Border>
                         </DataTemplate>
-                    </ListBox.ItemTemplate>
-                    <ListBox.Template>
-                        <ControlTemplate TargetType="{x:Type ListBox}">
-                            <Border Background="{TemplateBinding Background}"
-            BorderBrush="{TemplateBinding BorderBrush}"
+                    </ItemsControl.ItemTemplate>
 
-            BorderThickness="{TemplateBinding BorderThickness}">
-                                <Canvas IsItemsHost="True" />
-                            </Border>
-                        </ControlTemplate>
-                    </ListBox.Template>
-                    <ListBox.ItemContainerStyle>
-                        <Style TargetType="{x:Type ListBoxItem}">
-                            <Setter Property="Canvas.Left" Value="{Binding Position.X}" />
-                            <Setter Property="Canvas.Top" Value="{Binding Position.Y}" />
+                    <ItemsControl.ItemContainerStyle>
+                        <Style TargetType="{x:Type ContentPresenter}">
+                            <Setter Property="Canvas.Left" Value="{Binding Path=PositionX, Mode=TwoWay}" />
+                            <Setter Property="Canvas.Top" Value="{Binding Path=PositionY, Mode=TwoWay}" />
                         </Style>
-                    </ListBox.ItemContainerStyle>
-                </ListBox>
+                    </ItemsControl.ItemContainerStyle>
+                </ItemsControl>
             </StackPanel>
         </Border>
         <Border Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="4" BorderBrush="Black" BorderThickness="1">

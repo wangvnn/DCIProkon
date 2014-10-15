@@ -26,8 +26,8 @@ namespace ProkonDCI.Presentation.View
         public MainWindow()
         {            
             InitializeComponent();
-
-            this.DataContext = new ActivityDependancyViewModel(new ActivityDependencyGraph());
+            
+             this.DataContext = new ActivityDependancyViewModel(new ActivityDependencyGraph());
 
             // For this library, the Context must be initialized before use, depending on the type 
             // of application. In a simple application like this, the InStaticScope initalization 

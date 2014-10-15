@@ -52,15 +52,31 @@ namespace ProkonDCI.Presentation.ViewModel
             }
         }
 
-        public Point Position
+        public double PositionX
         {
             get
             {   
-                return Graph.ActivityPositionFor(Model.Name);
+                return Graph.ActivityPositionFor(Model.Name).X;
             }
             set
             {
-                Graph.ActivityPositionFor(Model, value);
+                var p = Graph.ActivityPositionFor(Model.Name);
+                Graph.ActivityPositionFor(Model, new Point(value, p.Y));
+                RaisePropertyChangedEvent("PositionX");
+            }
+        }
+
+        public double PositionY
+        {
+            get
+            {
+                return Graph.ActivityPositionFor(Model.Name).Y;
+            }
+            set
+            {
+                var p = Graph.ActivityPositionFor(Model.Name);
+                Graph.ActivityPositionFor(Model, new Point(p.X, value));
+                RaisePropertyChangedEvent("PositionY");
             }
         }
     }

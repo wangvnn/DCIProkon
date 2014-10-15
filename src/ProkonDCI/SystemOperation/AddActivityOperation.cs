@@ -67,6 +67,8 @@ namespace ProkonDCI.SystemOperation
             void AddActivity(Activity activity);
         }
 
+        internal Point AtPos { get; private set; }
+
         #endregion
 
         #region Constructors and Role bindings
@@ -78,20 +80,16 @@ namespace ProkonDCI.SystemOperation
 
         // The constructor(s) should be strongly typed to check for errors.
 
-        public AddActivityOperation(ActivityRepositoryRole repository, ActivityViewerRole viewer)
+        public AddActivityOperation(ActivityRepositoryRole repository, ActivityViewerRole viewer, Point atPos)
         {
-            BindRoles(repository, viewer);
-        }
+            // The BindRoles method however, should use object so anything can be sent here
+            // from the constructors, then casted to the RoleInterface.
 
-        // The BindRoles method however, should use object so anything can be sent here
-        // from the constructors, then casted to the RoleInterface.
-
-        private void BindRoles(ActivityRepositoryRole repository, ActivityViewerRole viewer)
-        {
             // Make the RolePlayers act the Roles they are supposed to.
             ActivityRepository = repository;
             ActivityInfoForm = (ActivityInfoFormRole)(new ActivityInfoDialog());
             ActivityViewer = viewer;
+            AtPos = atPos;
          }
 
         #endregion
@@ -155,7 +153,7 @@ namespace ProkonDCI.SystemOperation
                     if (newActivity != null)
                     {
                         c.ActivityRepository.AddActivity(newActivity);
-                        c.ActivityRepository.ActivityPositionFor(newActivity, new Point(50,50));
+                        c.ActivityRepository.ActivityPositionFor(newActivity, c.AtPos);
                         c.ActivityViewer.AddActivity(newActivity);
                     } 
                 }

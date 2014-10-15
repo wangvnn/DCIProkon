@@ -44,9 +44,15 @@
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
+    <Reference Include="Thriple">
+      <HintPath>..\References\Thriple.dll</HintPath>
+    </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="WPF.JoshSmith">
+      <HintPath>..\References\WPF.JoshSmith.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -70,6 +76,7 @@
     <Compile Include="Domain\Data\CommonTypes.cs" />
     <Compile Include="Domain\Data\Dependancy.cs" />
     <Compile Include="Domain\Data\Resource.cs" />
+    <Compile Include="Presentation\UIBehaviours\TrackMouseBehaviour.cs" />
     <Compile Include="Presentation\ViewModel\ActivityDependancyViewModel.cs" />
     <Compile Include="Presentation\ViewModel\DependancyViewModel.cs" />
     <Compile Include="Presentation\ViewModel\ActivityViewModel.cs" />

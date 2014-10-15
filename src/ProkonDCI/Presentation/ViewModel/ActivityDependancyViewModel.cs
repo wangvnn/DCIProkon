@@ -7,6 +7,7 @@ using System.Windows.Input;
 using ProkonDCI.SystemOperation;
 using ProkonDCI.Domain.Data;
 using System.Collections.ObjectModel;
+using System.Windows;
 
 namespace ProkonDCI.Presentation.ViewModel
 {
@@ -55,13 +56,13 @@ namespace ProkonDCI.Presentation.ViewModel
         {
             get
             {
-                return new DelegateCommand(AddActivity);
+                return new DelegateCommand<Point>(AddActivity);
             }
         }
 
-        private void AddActivity()
+        private void AddActivity(Point pos)
         {
-            new AddActivityOperation(Model, this).Execute();
+            new AddActivityOperation(Model, this, pos).Execute();
         }
         #endregion
 
