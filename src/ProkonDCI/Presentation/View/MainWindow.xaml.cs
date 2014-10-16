@@ -28,17 +28,7 @@ namespace ProkonDCI.Presentation.View
             InitializeComponent();
             
              this.DataContext = new ActivityDependancyViewModel(new ActivityDependencyGraph());
-
-            // For this library, the Context must be initialized before use, depending on the type 
-            // of application. In a simple application like this, the InStaticScope initalization 
-            // can be used. It means that the context will be shared between threads.
-            //
-            // Multithreading can create unpredictable effects when switching Context, so if the 
-            // Context should be scoped per Thread, use InThreadScope.
-            // 
-            // In a web application, the scope will be per Request and another Initalization
-            // method should be called, using for example HttpContext.Items for scope.
-            Context.Initialize.InStaticScope();
+             Context.Initialize.InStaticScope();
         }
     }
 }

@@ -14,9 +14,10 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using ProkonDCI.Domain.Data;
 using ProkonDCI.SystemOperation;
+using System.Windows.Threading;
 
 namespace ProkonDCI.Presentation.View
-{
+{    
     /// <summary>
     /// Interaction logic for ActivityInfoDialog.xaml
     /// </summary>
@@ -26,11 +27,6 @@ namespace ProkonDCI.Presentation.View
         public ActivityInfoDialog()
         {
             InitializeComponent();            
-        }
-
-        public event CancelEventHandler BeforeClose {
-            add { this.Closing += value; }
-            remove { this.Closing -= value; }
         }
 
         private bool Canceled { get; set; }
@@ -47,13 +43,23 @@ namespace ProkonDCI.Presentation.View
             Close();
         }
 
-        public Activity GetActivity()
+        public Activity CreateActivityFromUserInput()
         {
-            if (!Canceled)
+            Activity activity = null;
+            try
             {
-                return new Activity(NameInput.Text, int.Parse(DurationInput.Text), int.Parse(ResourceRequirementInput.Text));
+                this.ShowDialog();
+
+                if (!Canceled)
+                {
+                    activity = new Activity(NameInput.Text, int.Parse(DurationInput.Text), int.Parse(ResourceRequirementInput.Text));
+                }
             }
-            return null;
+            catch (FormatException ex)
+            {
+                throw ex;
+            }
+            return activity;
         }
     }
 }

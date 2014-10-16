@@ -8,6 +8,7 @@ using ProkonDCI.SystemOperation;
 using ProkonDCI.Domain.Data;
 using System.Collections.ObjectModel;
 using System.Windows;
+using ProkonDCI.Presentation.View;
 
 namespace ProkonDCI.Presentation.ViewModel
 {
@@ -39,6 +40,19 @@ namespace ProkonDCI.Presentation.ViewModel
             }
         }
 
+        private ActivityViewModel _SelectedItem;
+        public ActivityViewModel SelectedItem 
+        { 
+            get
+            {
+                return _SelectedItem;
+            }
+            set 
+            {
+                _SelectedItem = value;
+            }
+        }
+
         public void AddActivity(Activity activity)
         {
             var activityVM = new ActivityViewModel(Model, activity);
@@ -51,7 +65,10 @@ namespace ProkonDCI.Presentation.ViewModel
 
         private ActivityDependencyGraph Model { get;  set; }
 
+        #endregion
+
         #region Add Activity
+
         public ICommand AddActivityCommand
         {
             get
@@ -62,10 +79,8 @@ namespace ProkonDCI.Presentation.ViewModel
 
         private void AddActivity(Point pos)
         {
-            new AddActivityOperation(Model, this, pos).Execute();
+            new AddActivityOperation(Model, this, new ActivityInfoDialog(), pos).Execute();
         }
-        #endregion
-
         #endregion
     }
 }

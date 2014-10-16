@@ -2,33 +2,9 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:behaviour="clr-namespace:ProkonDCI.Presentation.UIBehaviours"   
-        xmlns:jas="clr-namespace:WPF.JoshSmith.Panels;assembly=WPF.JoshSmith"  
+        xmlns:jas="clr-namespace:WPF.JoshSmith.Controls"  
         Title="MainWindow" Height="1080" Width="1920">
     <Window.Resources>
-
-        <XmlDataProvider x:Key="MyData">
-
-            <x:XData>
-
-                <Data xmlns="">
-
-                    <Item primary="alpha" posX="10" posY="50" />
-
-                    <Item primary="beta" posX="100" posY="25" />
-
-                    <Item primary="gamma" posX="5" posY="0" />
-
-                    <Item primary="delta" posX="125" posY="45" />
-
-                    <Item primary="epsilon" posX="30" posY="20" />
-
-                    <Item primary="zeta" posX="115" posY="10" />
-
-                </Data>
-
-            </x:XData>
-
-        </XmlDataProvider>
         <Style x:Key="NodeBorderStyle" TargetType="{x:Type Border}">
             <Setter Property="Background" Value="LightGreen" />
             <Setter Property="BorderBrush" Value="Gray" />
@@ -72,12 +48,14 @@ Planning System
                 BorderBrush="Black" BorderThickness="1"
                 HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.ColumnSpan="4">
             <StackPanel>
-               
-                <ItemsControl Background="LightGray"  ItemsSource="{Binding Path=Activities, Mode=OneTime}"
-                         Height="500"
-                         HorizontalAlignment="Stretch"
-                         VerticalAlignment="Stretch">
-                    <ItemsControl.ItemsPanel>
+
+                <ListBox Background="LightGray"  
+                              ItemsSource="{Binding Path=Activities, Mode=OneTime}"
+                              SelectedItem="{Binding Path=SelectedItem, Mode=TwoWay}"
+                              Height="500"
+                              HorizontalAlignment="Stretch"
+                              VerticalAlignment="Stretch">
+                    <ListBox.ItemsPanel>
                         <ItemsPanelTemplate>
                             <jas:DragCanvas x:Name="pageCanvas" Margin="0" 
                                             HorizontalAlignment="Stretch" 
@@ -93,8 +71,8 @@ Planning System
                                 </jas:DragCanvas.ContextMenu>
                             </jas:DragCanvas>
                         </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
-                    <ItemsControl.ItemTemplate>
+                    </ListBox.ItemsPanel>
+                    <ListBox.ItemTemplate>
                         <DataTemplate>
                             <Border Style="{StaticResource NodeBorderStyle}">
                                 <TextBlock 
@@ -106,15 +84,15 @@ Planning System
                                 />
                             </Border>
                         </DataTemplate>
-                    </ItemsControl.ItemTemplate>
+                    </ListBox.ItemTemplate>
 
-                    <ItemsControl.ItemContainerStyle>
-                        <Style TargetType="{x:Type ContentPresenter}">
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="{x:Type ListBoxItem}">
                             <Setter Property="Canvas.Left" Value="{Binding Path=PositionX, Mode=TwoWay}" />
                             <Setter Property="Canvas.Top" Value="{Binding Path=PositionY, Mode=TwoWay}" />
                         </Style>
-                    </ItemsControl.ItemContainerStyle>
-                </ItemsControl>
+                    </ListBox.ItemContainerStyle>
+                </ListBox>
             </StackPanel>
         </Border>
         <Border Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="4" BorderBrush="Black" BorderThickness="1">
