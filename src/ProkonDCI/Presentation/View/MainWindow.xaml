@@ -1,7 +1,8 @@
 ﻿<Window x:Class="ProkonDCI.Presentation.View.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:behaviour="clr-namespace:ProkonDCI.Presentation.UIBehaviours"   
+        xmlns:behaviour="clr-namespace:ProkonDCI.Presentation.UIBehaviours"  
+        xmlns:viewmodel="clr-namespace:ProkonDCI.Presentation.ViewModel" 
         xmlns:jas="clr-namespace:WPF.JoshSmith.Controls"  
         Title="MainWindow" Height="1080" Width="1920">
     <Window.Resources>
@@ -50,11 +51,28 @@ Planning System
             <StackPanel>
 
                 <ListBox Background="LightGray"  
-                              ItemsSource="{Binding Path=Activities, Mode=OneTime}"
+                              ItemsSource="{Binding Path=ActivityDependancyGraph, Mode=OneTime}"
                               SelectedItem="{Binding Path=SelectedItem, Mode=TwoWay}"
                               Height="500"
                               HorizontalAlignment="Stretch"
                               VerticalAlignment="Stretch">
+                    <ListBox.Resources>
+                        <DataTemplate DataType="{x:Type viewmodel:ActivityViewModel}">
+                            <Border Style="{StaticResource NodeBorderStyle}">
+                                <TextBlock 
+                                FontSize="18"
+                                HorizontalAlignment="Center"               
+                                VerticalAlignment="Center" 
+                                Text="{Binding Path=Name, Mode=OneTime}" 
+                                TextAlignment="Center" 
+                                />
+                            </Border>
+                        </DataTemplate>
+                        <DataTemplate DataType="{x:Type viewmodel:DependancyViewModel}">
+                            <Border Style="{StaticResource NodeBorderStyle}">
+                            </Border>
+                        </DataTemplate>                        
+                    </ListBox.Resources>
                     <ListBox.ItemsPanel>
                         <ItemsPanelTemplate>
                             <jas:DragCanvas x:Name="pageCanvas" Margin="0" 
@@ -72,20 +90,7 @@ Planning System
                             </jas:DragCanvas>
                         </ItemsPanelTemplate>
                     </ListBox.ItemsPanel>
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <Border Style="{StaticResource NodeBorderStyle}">
-                                <TextBlock 
-                                FontSize="18"
-                                HorizontalAlignment="Center"               
-                                VerticalAlignment="Center" 
-                                Text="{Binding Path=Name, Mode=OneTime}" 
-                                TextAlignment="Center" 
-                                />
-                            </Border>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-
+   
                     <ListBox.ItemContainerStyle>
                         <Style TargetType="{x:Type ListBoxItem}">
                             <Setter Property="Canvas.Left" Value="{Binding Path=PositionX, Mode=TwoWay}" />

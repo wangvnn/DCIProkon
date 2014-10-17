@@ -9,6 +9,7 @@ using ProkonDCI.Domain.Data;
 using System.Collections.ObjectModel;
 using System.Windows;
 using ProkonDCI.Presentation.View;
+using System.Windows.Data;
 
 namespace ProkonDCI.Presentation.ViewModel
 {
@@ -18,9 +19,24 @@ namespace ProkonDCI.Presentation.ViewModel
         public ActivityDependancyViewModel(ActivityDependencyGraph model)
         {
             Model = model;
+            _ActivityDependancyGraph = new CompositeCollection();
+            var container1 = new CollectionContainer();
+            container1.Collection = Activities;
+            var container2 = new CollectionContainer();
+            container2.Collection = Dependencies;
+            _ActivityDependancyGraph.Add(container1);
+            _ActivityDependancyGraph.Add(container2);
+
+            Dependencies.Add(new DependancyViewModel());
         }
 
         #region Child ViewModel
+
+        public CompositeCollection ActivityDependancyGraph
+        {
+            get { return _ActivityDependancyGraph;  }
+        }
+        private CompositeCollection _ActivityDependancyGraph;
 
         public ObservableCollection<ActivityViewModel> _activities = new ObservableCollection<ActivityViewModel>();
         public ObservableCollection<ActivityViewModel> Activities

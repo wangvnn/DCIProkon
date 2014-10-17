@@ -13,5 +13,11 @@ namespace ProkonDCI.Presentation.ViewModel
         {
 
         }
+
+        public double PositionX {get;set;}
+
+
+        public double PositionY {get;set;}
+
     }
 }
