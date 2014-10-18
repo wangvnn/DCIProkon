@@ -79,5 +79,9 @@ namespace ProkonDCI.Presentation.ViewModel
                 RaisePropertyChangedEvent("PositionY");
             }
         }
+
+        public bool IsSelectable { 
+            get { return true; }
+        }
     }
 }

@@ -73,6 +73,9 @@
     <Compile Include="Domain\Data\CommonTypes.cs" />
     <Compile Include="Domain\Data\Dependancy.cs" />
     <Compile Include="Domain\Data\Resource.cs" />
+    <Compile Include="Presentation\Controls\ArrowEnds.cs" />
+    <Compile Include="Presentation\Controls\ArrowLine.cs" />
+    <Compile Include="Presentation\Controls\ArrowLineBase.cs" />
     <Compile Include="Presentation\Controls\DragCanvas.cs" />
     <Compile Include="Presentation\UIBehaviours\TrackMouseBehaviour.cs" />
     <Compile Include="Presentation\ViewModel\ActivityDependancyViewModel.cs" />

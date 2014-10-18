@@ -26,8 +26,6 @@ namespace ProkonDCI.Presentation.ViewModel
             container2.Collection = Dependencies;
             _ActivityDependancyGraph.Add(container1);
             _ActivityDependancyGraph.Add(container2);
-
-            Dependencies.Add(new DependancyViewModel());
         }
 
         #region Child ViewModel
@@ -96,6 +94,11 @@ namespace ProkonDCI.Presentation.ViewModel
         private void AddActivity(Point pos)
         {
             new AddActivityOperation(Model, this, new ActivityInfoDialog(), pos).Execute();
+
+            if (Activities.Count >= 2)
+            {
+                Dependencies.Add(new DependancyViewModel(Activities[0], Activities[1]));
+            }
         }
         #endregion
     }

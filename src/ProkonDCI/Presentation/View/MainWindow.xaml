@@ -1,6 +1,7 @@
 ﻿<Window x:Class="ProkonDCI.Presentation.View.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:arrow="clr-namespace:Petzold.Media2D"
         xmlns:behaviour="clr-namespace:ProkonDCI.Presentation.UIBehaviours"  
         xmlns:viewmodel="clr-namespace:ProkonDCI.Presentation.ViewModel" 
         xmlns:jas="clr-namespace:WPF.JoshSmith.Controls"  
@@ -49,7 +50,6 @@ Planning System
                 BorderBrush="Black" BorderThickness="1"
                 HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.ColumnSpan="4">
             <StackPanel>
-
                 <ListBox Background="LightGray"  
                               ItemsSource="{Binding Path=ActivityDependancyGraph, Mode=OneTime}"
                               SelectedItem="{Binding Path=SelectedItem, Mode=TwoWay}"
@@ -69,8 +69,14 @@ Planning System
                             </Border>
                         </DataTemplate>
                         <DataTemplate DataType="{x:Type viewmodel:DependancyViewModel}">
-                            <Border Style="{StaticResource NodeBorderStyle}">
-                            </Border>
+                            <arrow:ArrowLine X1="{Binding X1}"
+                                             Y1="{Binding Y1}"
+                                             X2="{Binding X2}"
+                                             Y2="{Binding Y2}"
+                                             Stroke="Black"
+                                             StrokeThickness="3"
+                                             Focusable="False"
+                                             jas:DragCanvas.CanBeDragged="False"/>
                         </DataTemplate>                        
                     </ListBox.Resources>
                     <ListBox.ItemsPanel>
@@ -95,6 +101,12 @@ Planning System
                         <Style TargetType="{x:Type ListBoxItem}">
                             <Setter Property="Canvas.Left" Value="{Binding Path=PositionX, Mode=TwoWay}" />
                             <Setter Property="Canvas.Top" Value="{Binding Path=PositionY, Mode=TwoWay}" />
+                            <Setter Property="IsHitTestVisible" Value="True" />
+                            <Style.Triggers>
+                              <DataTrigger Binding="{Binding Path=IsSelectable}" Value="False">
+                                <Setter Property="IsHitTestVisible" Value="False" />
+                              </DataTrigger>
+                            </Style.Triggers>                          
                         </Style>
                     </ListBox.ItemContainerStyle>
                 </ListBox>
