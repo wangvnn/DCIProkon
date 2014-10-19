@@ -1,20 +1,39 @@
 ﻿using ProkonDCI.Domain.Data;
+using ProkonDCI.Presentation.View;
+using ProkonDCI.SystemOperation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 using WPF.Presentation;
 
 namespace ProkonDCI.Presentation.ViewModel 
 {
     public class ActivityViewModel : ObservableObject
     {
-        public ActivityViewModel(ActivityDependencyGraph graph, Activity activity)
+        public ActivityViewModel(ObservableObject parent, ActivityDependencyGraph graph, Activity activity)
         {
             Graph = graph;
             Model = activity;
+            Parent = parent;
+        }
+
+        public ObservableObject Parent { get; private set; }
+
+        public ICommand AddDependancyCommand
+        {
+            get
+            {
+                return new DelegateCommand(AddDependancy);
+            }
+        }
+
+        private void AddDependancy()
+        {
+            new DependancyAdding(this.Model, new DependantInfoDialog(), Graph, Graph, (DependancyAdding.DependancyViewerRole)Parent).Execute();
         }
 
         private ActivityDependencyGraph Graph { get; set; }

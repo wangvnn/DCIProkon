@@ -21,10 +21,10 @@ namespace ProkonDCI.Presentation.View
     /// <summary>
     /// Interaction logic for ActivityInfoDialog.xaml
     /// </summary>
-    public partial class ActivityInfoDialog : Window, 
-        ActivityAdding.ActivityInfoFormRole
+    public partial class DependantInfoDialog : Window, 
+        DependancyAdding.DependantInfoFormRole
     {
-        public ActivityInfoDialog()
+        public DependantInfoDialog()
         {
             InitializeComponent();            
         }
@@ -43,29 +43,16 @@ namespace ProkonDCI.Presentation.View
             Close();
         }
 
-        public bool AskActivityInfo(out string name, out int duration, out int resource)
+        public bool AskDependantName(out string dependantName)
         {
-            name = "";
-            duration = 0;
-            resource = 0;
-
+            dependantName = "";
             this.ShowDialog();
 
             if (!Canceled)
             {
-                try
-                {
-                    name = NameInput.Text;
-                    duration = int.Parse(DurationInput.Text);
-                    resource = int.Parse(ResourceRequirementInput.Text);
-                    return true;
-                }
-                catch (FormatException ex)
-                {
-                    Console.WriteLine("Error::" + ex.Message);
-                    throw;
-                }
-            }
+                dependantName = NameInput.Text;
+                return true;
+            }            
 
             return false;
         }

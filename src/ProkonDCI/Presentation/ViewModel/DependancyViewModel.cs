@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using WPF.Presentation;
 
 namespace ProkonDCI.Presentation.ViewModel 
@@ -93,6 +94,18 @@ namespace ProkonDCI.Presentation.ViewModel
         public bool IsSelectable
         {
             get { return false; }
+        }
+
+        public ICommand RemoveDependancyCommand
+        {
+            get
+            {
+                return new DelegateCommand(RemoveDependancy);
+            }
+        }
+
+        private void RemoveDependancy()
+        {
         }
     }
 }

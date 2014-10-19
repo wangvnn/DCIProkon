@@ -59,25 +59,42 @@ Planning System
                     <ListBox.Resources>
                         <DataTemplate DataType="{x:Type viewmodel:ActivityViewModel}">
                             <Border Style="{StaticResource NodeBorderStyle}">
-                                <TextBlock 
+                              <Border.ContextMenu>
+                                <ContextMenu x:Name="pageCanvasContextMenu">
+                                  <MenuItem x:Name="addDependancyMenu"  Header="Add Dependancy"
+                                            Command="{Binding AddDependancyCommand}"
+                                            CommandParameter="{Binding}"/>
+                                </ContextMenu>
+                              </Border.ContextMenu>
+                              <TextBlock 
                                 FontSize="18"
                                 HorizontalAlignment="Center"               
                                 VerticalAlignment="Center" 
                                 Text="{Binding Path=Name, Mode=OneTime}" 
                                 TextAlignment="Center" 
-                                />
+                                />                         
                             </Border>
                         </DataTemplate>
                         <DataTemplate DataType="{x:Type viewmodel:DependancyViewModel}">
-                            <arrow:ArrowLine X1="{Binding X1}"
-                                             Y1="{Binding Y1}"
-                                             X2="{Binding X2}"
-                                             Y2="{Binding Y2}"
-                                             Stroke="Black"
-                                             StrokeThickness="3"
-                                             Focusable="False"
-                                             jas:DragCanvas.CanBeDragged="False"/>
-                        </DataTemplate>                        
+                          <arrow:ArrowLine X1="{Binding X1}"
+                                           Y1="{Binding Y1}"
+                                           X2="{Binding X2}"
+                                           Y2="{Binding Y2}"
+                                           Stroke="Black"
+                                           StrokeThickness="5"
+                                           IsHitTestVisible="True"
+                                           jas:DragCanvas.CanBeDragged="False">
+                            <arrow:ArrowLine.ContextMenu>
+                              <ContextMenu x:Name="pageCanvasContextMenu">
+                                <MenuItem x:Name="removeDependancyMenu"  Header="Remove Dependancy"
+                                          Command="{Binding RemoveDependancyCommand}"
+                                          CommandParameter="{Binding}"/>
+                              </ContextMenu>
+                            </arrow:ArrowLine.ContextMenu>
+                          </arrow:ArrowLine>
+                        </DataTemplate>      
+                        <SolidColorBrush x:Key="SelectedBackgroundBrush" Color="#DDD" />
+                        <SolidColorBrush x:Key="DisabledForegroundBrush" Color="#888" />                    
                     </ListBox.Resources>
                     <ListBox.ItemsPanel>
                         <ItemsPanelTemplate>
@@ -101,12 +118,16 @@ Planning System
                         <Style TargetType="{x:Type ListBoxItem}">
                             <Setter Property="Canvas.Left" Value="{Binding Path=PositionX, Mode=TwoWay}" />
                             <Setter Property="Canvas.Top" Value="{Binding Path=PositionY, Mode=TwoWay}" />
-                            <Setter Property="IsHitTestVisible" Value="True" />
-                            <Style.Triggers>
-                              <DataTrigger Binding="{Binding Path=IsSelectable}" Value="False">
-                                <Setter Property="IsHitTestVisible" Value="False" />
-                              </DataTrigger>
-                            </Style.Triggers>                          
+    
+                            <Setter Property="SnapsToDevicePixels" Value="true"/>
+                            <Setter Property="OverridesDefaultStyle" Value="true"/>
+                            <Setter Property="Template">
+                              <Setter.Value>
+                                <ControlTemplate TargetType="ListBoxItem">
+                                    <ContentPresenter />
+                                </ControlTemplate>
+                              </Setter.Value>
+                            </Setter>
                         </Style>
                     </ListBox.ItemContainerStyle>
                 </ListBox>

@@ -56,6 +56,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Presentation\View\DependantInfoDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Presentation\View\ActivityInfoDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -81,10 +85,14 @@
     <Compile Include="Presentation\ViewModel\ActivityDependancyViewModel.cs" />
     <Compile Include="Presentation\ViewModel\DependancyViewModel.cs" />
     <Compile Include="Presentation\ViewModel\ActivityViewModel.cs" />
+    <Compile Include="Presentation\View\DependantInfoDialog.xaml.cs">
+      <DependentUpon>DependantInfoDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Presentation\View\ActivityInfoDialog.xaml.cs">
       <DependentUpon>ActivityInfoDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SystemOperation\AddActivityOperation.cs" />
+    <Compile Include="SystemOperation\DependancyAdding.cs" />
+    <Compile Include="SystemOperation\ActivityAdding.cs" />
     <Compile Include="Presentation\View\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

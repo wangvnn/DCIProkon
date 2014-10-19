@@ -10,7 +10,10 @@ using System.Windows;
 namespace ProkonDCI.Domain.Data
 {
     public class ActivityDependencyGraph : 
-        AddActivityOperation.ActivityRepositoryRole
+        ActivityAdding.ActivityRepositoryRole,
+        ActivityAdding.ActivityFactoryRole,
+        DependancyAdding.DependancyRepositoryRole,
+        DependancyAdding.DependancyFactoryRole
     {
         public ActivityDependencyGraph()
         {
@@ -35,6 +38,18 @@ namespace ProkonDCI.Domain.Data
         {
             get { return _projectFinish; }
             set { _projectFinish = value; }
+        }
+        #endregion
+
+        #region Factory Methods
+        public Dependancy CreateDependancy(Activity activity1, Activity activity2)
+        {
+            return new Dependancy(activity1, activity2);
+        }
+
+        public Activity CreateActivity(string name, int duration, int resource)
+        {
+            return new Activity(name, duration, resource);
         }
         #endregion
 
@@ -107,6 +122,5 @@ namespace ProkonDCI.Domain.Data
         private List<Dependancy> _dependancies = new List<Dependancy>();
         private Resource _resource = new Resource();
 #       endregion
-
     }
 }

@@ -14,7 +14,8 @@ using System.Windows.Data;
 namespace ProkonDCI.Presentation.ViewModel
 {
     public class ActivityDependancyViewModel : ObservableObject,
-        AddActivityOperation.ActivityViewerRole
+        ActivityAdding.ActivityViewerRole,
+        DependancyAdding.DependancyViewerRole
     {
         public ActivityDependancyViewModel(ActivityDependencyGraph model)
         {
@@ -67,12 +68,6 @@ namespace ProkonDCI.Presentation.ViewModel
             }
         }
 
-        public void AddActivity(Activity activity)
-        {
-            var activityVM = new ActivityViewModel(Model, activity);
-            Activities.Add(activityVM);
-        }
-
         #endregion
 
         #region Model
@@ -81,7 +76,7 @@ namespace ProkonDCI.Presentation.ViewModel
 
         #endregion
 
-        #region Add Activity
+        #region Commands
 
         public ICommand AddActivityCommand
         {
@@ -93,12 +88,25 @@ namespace ProkonDCI.Presentation.ViewModel
 
         private void AddActivity(Point pos)
         {
-            new AddActivityOperation(Model, this, new ActivityInfoDialog(), pos).Execute();
+            new ActivityAdding(new ActivityInfoDialog(), pos, Model, Model, this).Execute();
+        }
 
-            if (Activities.Count >= 2)
-            {
-                Dependencies.Add(new DependancyViewModel(Activities[0], Activities[1]));
-            }
+        #endregion
+
+        #region Public Functions
+
+        public void AddActivity(Activity activity)
+        {
+            var activityVM = new ActivityViewModel(this, Model, activity);
+            Activities.Add(activityVM);
+        }
+
+        public void AddDependancy(Dependancy dependancy)
+        {
+            var source = Activities.FirstOrDefault(a => a.Name == dependancy.FromActivity.Name);
+            var target = Activities.FirstOrDefault(a => a.Name == dependancy.ToActivity.Name); 
+            var dependancyVM = new DependancyViewModel(source, target);
+            Dependencies.Add(dependancyVM);
         }
         #endregion
     }
