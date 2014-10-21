@@ -5,8 +5,16 @@
         xmlns:behaviour="clr-namespace:ProkonDCI.Presentation.UIBehaviours"  
         xmlns:viewmodel="clr-namespace:ProkonDCI.Presentation.ViewModel" 
         xmlns:jas="clr-namespace:WPF.JoshSmith.Controls"  
+        xmlns:jasCommand="clr-namespace:VMCommanding"
+        jasCommand:CommandSinkBinding.CommandSink="{Binding}"
         Title="MainWindow" Height="1080" Width="1920">
-    <Window.Resources>
+  <Window.CommandBindings>
+    <jasCommand:CommandSinkBinding Command="viewmodel:ActivityRoutedCommands.AddDependancyCommand" />
+    <jasCommand:CommandSinkBinding Command="viewmodel:ActivityRoutedCommands.DeleteActivityCommand" />
+    <jasCommand:CommandSinkBinding Command="viewmodel:DependancyRoutedCommands.RemoveDependancyCommand" />
+    
+  </Window.CommandBindings>
+  <Window.Resources>
         <Style x:Key="NodeBorderStyle" TargetType="{x:Type Border}">
             <Setter Property="Background" Value="LightGreen" />
             <Setter Property="BorderBrush" Value="Gray" />
@@ -16,6 +24,7 @@
             <Setter Property="Padding" Value="4" />
             <Setter Property="TextElement.FontWeight" Value="Normal" />
             <Setter Property="Width" Value="{Binding Path=NodeWidth, Mode=OneTime}" />
+            <Setter Property="Height" Value="{Binding Path=NodeHeight, Mode=OneTime}" />
         </Style>
     </Window.Resources>
     <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
@@ -62,8 +71,11 @@ Planning System
                               <Border.ContextMenu>
                                 <ContextMenu x:Name="pageCanvasContextMenu">
                                   <MenuItem x:Name="addDependancyMenu"  Header="Add Dependancy"
-                                            Command="{Binding AddDependancyCommand}"
+                                            Command="viewmodel:ActivityRoutedCommands.AddDependancyCommand"
                                             CommandParameter="{Binding}"/>
+                                  <MenuItem x:Name="deleteActivityMenu"  Header="Delete Activity"
+                                            Command="viewmodel:ActivityRoutedCommands.DeleteActivityCommand"
+                                            CommandParameter="{Binding}"/>                                  
                                 </ContextMenu>
                               </Border.ContextMenu>
                               <TextBlock 
@@ -87,14 +99,12 @@ Planning System
                             <arrow:ArrowLine.ContextMenu>
                               <ContextMenu x:Name="pageCanvasContextMenu">
                                 <MenuItem x:Name="removeDependancyMenu"  Header="Remove Dependancy"
-                                          Command="{Binding RemoveDependancyCommand}"
+                                          Command="viewmodel:DependancyRoutedCommands.RemoveDependancyCommand"
                                           CommandParameter="{Binding}"/>
                               </ContextMenu>
                             </arrow:ArrowLine.ContextMenu>
                           </arrow:ArrowLine>
-                        </DataTemplate>      
-                        <SolidColorBrush x:Key="SelectedBackgroundBrush" Color="#DDD" />
-                        <SolidColorBrush x:Key="DisabledForegroundBrush" Color="#888" />                    
+                        </DataTemplate>                           
                     </ListBox.Resources>
                     <ListBox.ItemsPanel>
                         <ItemsPanelTemplate>

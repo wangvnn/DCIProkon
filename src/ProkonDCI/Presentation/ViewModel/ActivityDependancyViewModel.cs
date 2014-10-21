@@ -20,13 +20,32 @@ namespace ProkonDCI.Presentation.ViewModel
         public ActivityDependancyViewModel(ActivityDependencyGraph model)
         {
             Model = model;
+
             _ActivityDependancyGraph = new CompositeCollection();
+
             var container1 = new CollectionContainer();
             container1.Collection = Activities;
+
             var container2 = new CollectionContainer();
             container2.Collection = Dependencies;
+
             _ActivityDependancyGraph.Add(container1);
             _ActivityDependancyGraph.Add(container2);
+
+            base.RegisterCommand(
+                ActivityRoutedCommands.AddDependancyCommand,
+                param => this.CanAddDependancy,
+                param => this.AddDependancy(param as ActivityViewModel));
+
+            base.RegisterCommand(
+                ActivityRoutedCommands.DeleteActivityCommand,
+                param => this.CanDeleteAcitivy,
+                param => this.DeleteAcitivy(param as ActivityViewModel));
+
+            base.RegisterCommand(
+                DependancyRoutedCommands.RemoveDependancyCommand,
+                param => this.CanRemoveDependancy,
+                param => this.RemoveDependancy(param as DependancyViewModel));
         }
 
         #region Child ViewModel
@@ -91,21 +110,55 @@ namespace ProkonDCI.Presentation.ViewModel
             new ActivityAdding(new ActivityInfoDialog(), pos, Model, Model, this).Execute();
         }
 
+
+        public bool CanRemoveDependancy
+        {
+            get { return true; }
+        }
+
+        private void RemoveDependancy(DependancyViewModel dependancyVM)
+        {
+            Model.RemoveDependancy(dependancyVM.Model);
+            Dependencies.Remove(dependancyVM);
+        }
+
+        public bool CanAddDependancy
+        {
+            get { return true; }
+        }
+
+        public void AddDependancy(ActivityViewModel activityVM)
+        {
+            new DependancyAdding(activityVM.Model, new DependantInfoDialog(), Model, Model, this).Execute();
+        }
+
+
+        public bool CanDeleteAcitivy
+        {
+            get { return true; }
+        }
+
+        public void DeleteAcitivy(ActivityViewModel activityVM)
+        {
+            Model.RemoveActivity(activityVM.Model);
+            Activities.Remove(activityVM);
+            Dependencies.Where(d => d.Source == activityVM || d.Target == activityVM).ToList().ForEach(x => Dependencies.Remove(x));
+        }
         #endregion
 
         #region Public Functions
 
         public void AddActivity(Activity activity)
         {
-            var activityVM = new ActivityViewModel(this, Model, activity);
+            var activityVM = new ActivityViewModel(Model, activity);
             Activities.Add(activityVM);
         }
 
         public void AddDependancy(Dependancy dependancy)
         {
             var source = Activities.FirstOrDefault(a => a.Name == dependancy.FromActivity.Name);
-            var target = Activities.FirstOrDefault(a => a.Name == dependancy.ToActivity.Name); 
-            var dependancyVM = new DependancyViewModel(source, target);
+            var target = Activities.FirstOrDefault(a => a.Name == dependancy.ToActivity.Name);
+            var dependancyVM = new DependancyViewModel(source, target, dependancy);
             Dependencies.Add(dependancyVM);
         }
         #endregion

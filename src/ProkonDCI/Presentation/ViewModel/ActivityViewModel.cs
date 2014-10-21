@@ -12,39 +12,32 @@ using WPF.Presentation;
 
 namespace ProkonDCI.Presentation.ViewModel 
 {
+    public class ActivityRoutedCommands
+    {
+        public static readonly RoutedUICommand AddDependancyCommand =
+            new RoutedUICommand("To add dependancy", "Add Dependancy", typeof(ActivityRoutedCommands));
+        public static readonly RoutedUICommand DeleteActivityCommand =
+            new RoutedUICommand("To delete activity", "Delete Activity", typeof(ActivityRoutedCommands));
+    }
+
     public class ActivityViewModel : ObservableObject
     {
-        public ActivityViewModel(ObservableObject parent, ActivityDependencyGraph graph, Activity activity)
+        public ActivityViewModel(ActivityDependencyGraph graph, Activity activity)
         {
             Graph = graph;
             Model = activity;
-            Parent = parent;
-        }
+        }      
 
-        public ObservableObject Parent { get; private set; }
-
-        public ICommand AddDependancyCommand
-        {
-            get
-            {
-                return new DelegateCommand(AddDependancy);
-            }
-        }
-
-        private void AddDependancy()
-        {
-            new DependancyAdding(this.Model, new DependantInfoDialog(), Graph, Graph, (DependancyAdding.DependancyViewerRole)Parent).Execute();
-        }
 
         private ActivityDependencyGraph Graph { get; set; }
         private Activity _Model = null;
-        private Activity Model 
+        public Activity Model 
         { 
             get
             {
                 return _Model;
             }
-            set
+            private set
             {
                 if (_Model != value)
                 {
@@ -101,6 +94,16 @@ namespace ProkonDCI.Presentation.ViewModel
 
         public bool IsSelectable { 
             get { return true; }
+        }
+
+        public int NodeWidth
+        {
+            get { return 60; }
+        }
+
+        public int NodeHeight
+        {
+            get { return 30; }
         }
     }
 }

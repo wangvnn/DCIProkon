@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
+using VMCommanding;
 
 namespace WPF.Presentation
 {
-    public class ObservableObject : INotifyPropertyChanged
+    public class ObservableObject : CommandSink, INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 

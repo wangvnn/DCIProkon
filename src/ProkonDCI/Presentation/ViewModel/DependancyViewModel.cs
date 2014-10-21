@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProkonDCI.Domain.Data;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -9,10 +10,17 @@ using WPF.Presentation;
 
 namespace ProkonDCI.Presentation.ViewModel 
 {
+    public class DependancyRoutedCommands
+    {
+        public static readonly RoutedUICommand RemoveDependancyCommand = 
+            new RoutedUICommand("To remove dependancy", "RemoveDependancy", typeof(DependancyRoutedCommands));
+    }
+
     public class DependancyViewModel : ObservableObject
     {
-        public DependancyViewModel(ActivityViewModel source, ActivityViewModel target)
+        public DependancyViewModel(ActivityViewModel source, ActivityViewModel target, Dependancy dependnacy)
         {
+            Model = dependnacy;
             Source = source;
             Target = target;
 
@@ -22,6 +30,8 @@ namespace ProkonDCI.Presentation.ViewModel
             Target.PropertyChanged += new PropertyChangedEventHandler(
                     SourceOrTargetChanged);
         }
+
+        public Dependancy Model {get; private set; }
 
         private void SourceOrTargetChanged(object sender, PropertyChangedEventArgs e)
         {
@@ -62,7 +72,7 @@ namespace ProkonDCI.Presentation.ViewModel
         {
             get
             {
-                return 0;
+                return Source.NodeWidth;
             }
         }
 
@@ -71,7 +81,7 @@ namespace ProkonDCI.Presentation.ViewModel
         {
             get
             {
-                return 0;
+                return Source.NodeHeight/2;
             }
         }
         public double X2
@@ -87,25 +97,13 @@ namespace ProkonDCI.Presentation.ViewModel
         {
             get
             {
-                return Target.PositionY-Source.PositionY;
+                return Target.PositionY-Source.PositionY + Target.NodeHeight/2;
             }
         }
 
         public bool IsSelectable
         {
             get { return false; }
-        }
-
-        public ICommand RemoveDependancyCommand
-        {
-            get
-            {
-                return new DelegateCommand(RemoveDependancy);
-            }
-        }
-
-        private void RemoveDependancy()
-        {
         }
     }
 }

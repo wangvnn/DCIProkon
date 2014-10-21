@@ -77,6 +77,8 @@
     <Compile Include="Domain\Data\CommonTypes.cs" />
     <Compile Include="Domain\Data\Dependancy.cs" />
     <Compile Include="Domain\Data\Resource.cs" />
+    <Compile Include="Infrastructure\WPF\CommandSink.cs" />
+    <Compile Include="Infrastructure\WPF\CommandSinkBinding.cs" />
     <Compile Include="Presentation\Controls\ArrowEnds.cs" />
     <Compile Include="Presentation\Controls\ArrowLine.cs" />
     <Compile Include="Presentation\Controls\ArrowLineBase.cs" />
