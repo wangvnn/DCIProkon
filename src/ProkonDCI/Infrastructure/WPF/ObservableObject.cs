@@ -8,7 +8,7 @@ using VMCommanding;
 
 namespace WPF.Presentation
 {
-    public class ObservableObject : CommandSink, INotifyPropertyChanged
+    public class ViewModelBase : CommandSink, INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 

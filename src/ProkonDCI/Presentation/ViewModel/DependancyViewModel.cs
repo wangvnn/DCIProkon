@@ -16,7 +16,7 @@ namespace ProkonDCI.Presentation.ViewModel
             new RoutedUICommand("To remove dependancy", "RemoveDependancy", typeof(DependancyRoutedCommands));
     }
 
-    public class DependancyViewModel : ObservableObject
+    public class DependancyViewModel : ViewModelBase
     {
         public DependancyViewModel(ActivityViewModel source, ActivityViewModel target, Dependancy dependnacy)
         {
@@ -99,11 +99,6 @@ namespace ProkonDCI.Presentation.ViewModel
             {
                 return Target.PositionY-Source.PositionY + Target.NodeHeight/2;
             }
-        }
-
-        public bool IsSelectable
-        {
-            get { return false; }
         }
     }
 }

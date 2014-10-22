@@ -21,6 +21,14 @@ namespace ProkonDCI.SystemOperation
         //    4. System/DependancyFactoryRole creates new Dependancy 
         //    5. System/DependancyRepositoryRole stores new Dependancy
         //    6. System/DependancyViewerRole displays Dependancy on Screen
+        // Extension
+        //
+        // 3.a User provides wrong info: invalid depandant Activity's name 
+        //    4.a System/MessageBox reports error
+        //
+        // 3.b User provides duplicated info: depandant Activity already has dependancy from the same Activity.
+        //    4.b System/MessageBox reports error
+        //    
         #endregion
 
         #region Roles and RoleInterfaces
@@ -39,12 +47,12 @@ namespace ProkonDCI.SystemOperation
             Dependancy CreateDependancy(Activity activity1, Activity activity2);
         }
 
-
         internal DependancyRepositoryRole DependancyRepository { get; private set; }
         public interface DependancyRepositoryRole
         {
             void AddDependancy(Dependancy dependancy);
             Activity ActivityNamed(string name);
+            List<Activity> PredecessorsOf(Activity activity);
         }
 
         internal DependancyViewerRole DependancyViewer { get; private set; }
@@ -111,8 +119,15 @@ namespace ProkonDCI.SystemOperation
             var dependantActivity = c.DependancyRepository.ActivityNamed(dependantName);
             if (dependantActivity != null)
             {
-                var dependancy = c.DependancyFactory.CreateDependancy(c.TheActivity, dependantActivity);
-                c.DependancyRepository.AddNewDependancy(dependancy);
+                if (!c.DependancyRepository.PredecessorsOf(dependantActivity).Contains(c.TheActivity))
+                {
+                    var dependancy = c.DependancyFactory.CreateDependancy(c.TheActivity, dependantActivity);
+                    c.DependancyRepository.AddNewDependancy(dependancy);
+                }
+                else
+                {
+                    MessageBox.Show("There is a dependancy between these two activities.", "Error");
+                }
             }
             else
             {

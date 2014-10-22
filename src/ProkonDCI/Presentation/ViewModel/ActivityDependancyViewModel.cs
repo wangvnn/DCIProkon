@@ -13,40 +13,16 @@ using System.Windows.Data;
 
 namespace ProkonDCI.Presentation.ViewModel
 {
-    public class ActivityDependancyViewModel : ObservableObject,
+    public class ActivityDependancyViewModel : ViewModelBase,
         ActivityAdding.ActivityViewerRole,
         DependancyAdding.DependancyViewerRole
     {
         public ActivityDependancyViewModel(ActivityDependencyGraph model)
         {
             Model = model;
-
-            _ActivityDependancyGraph = new CompositeCollection();
-
-            var container1 = new CollectionContainer();
-            container1.Collection = Activities;
-
-            var container2 = new CollectionContainer();
-            container2.Collection = Dependencies;
-
-            _ActivityDependancyGraph.Add(container1);
-            _ActivityDependancyGraph.Add(container2);
-
-            base.RegisterCommand(
-                ActivityRoutedCommands.AddDependancyCommand,
-                param => this.CanAddDependancy,
-                param => this.AddDependancy(param as ActivityViewModel));
-
-            base.RegisterCommand(
-                ActivityRoutedCommands.DeleteActivityCommand,
-                param => this.CanDeleteAcitivy,
-                param => this.DeleteAcitivy(param as ActivityViewModel));
-
-            base.RegisterCommand(
-                DependancyRoutedCommands.RemoveDependancyCommand,
-                param => this.CanRemoveDependancy,
-                param => this.RemoveDependancy(param as DependancyViewModel));
-        }
+            SetupChildrenViewModel();
+            RegisterRoutedCommandHandlers();           
+        }        
 
         #region Child ViewModel
 
@@ -84,7 +60,22 @@ namespace ProkonDCI.Presentation.ViewModel
             set 
             {
                 _SelectedItem = value;
+                RaisePropertyChangedEvent("SelectedItem");
             }
+        }
+
+        private void SetupChildrenViewModel()
+        {
+            _ActivityDependancyGraph = new CompositeCollection();
+
+            var container1 = new CollectionContainer();
+            container1.Collection = Activities;
+
+            var container2 = new CollectionContainer();
+            container2.Collection = Dependencies;
+
+            _ActivityDependancyGraph.Add(container1);
+            _ActivityDependancyGraph.Add(container2);
         }
 
         #endregion
@@ -105,37 +96,38 @@ namespace ProkonDCI.Presentation.ViewModel
             }
         }
 
-        private void AddActivity(Point pos)
+        public void AddActivity(Point pos)
         {
             new ActivityAdding(new ActivityInfoDialog(), pos, Model, Model, this).Execute();
         }
 
-
-        public bool CanRemoveDependancy
+        private void RegisterRoutedCommandHandlers()
         {
-            get { return true; }
+            base.RegisterCommand(
+                            ActivityRoutedCommands.AddDependancyCommand,
+                            param => { return true; },
+                            param => this.AddDependancy(param as ActivityViewModel));
+
+            base.RegisterCommand(
+                ActivityRoutedCommands.DeleteActivityCommand,
+                param => { return true; },
+                param => this.DeleteAcitivy(param as ActivityViewModel));
+
+            base.RegisterCommand(
+                DependancyRoutedCommands.RemoveDependancyCommand,
+                param => { return true; },
+                param => this.RemoveDependancy(param as DependancyViewModel));
         }
 
-        private void RemoveDependancy(DependancyViewModel dependancyVM)
+        public void RemoveDependancy(DependancyViewModel dependancyVM)
         {
             Model.RemoveDependancy(dependancyVM.Model);
             Dependencies.Remove(dependancyVM);
         }
 
-        public bool CanAddDependancy
-        {
-            get { return true; }
-        }
-
         public void AddDependancy(ActivityViewModel activityVM)
         {
             new DependancyAdding(activityVM.Model, new DependantInfoDialog(), Model, Model, this).Execute();
-        }
-
-
-        public bool CanDeleteAcitivy
-        {
-            get { return true; }
         }
 
         public void DeleteAcitivy(ActivityViewModel activityVM)
@@ -144,6 +136,7 @@ namespace ProkonDCI.Presentation.ViewModel
             Activities.Remove(activityVM);
             Dependencies.Where(d => d.Source == activityVM || d.Target == activityVM).ToList().ForEach(x => Dependencies.Remove(x));
         }
+
         #endregion
 
         #region Public Functions
@@ -156,8 +149,8 @@ namespace ProkonDCI.Presentation.ViewModel
 
         public void AddDependancy(Dependancy dependancy)
         {
-            var source = Activities.FirstOrDefault(a => a.Name == dependancy.FromActivity.Name);
-            var target = Activities.FirstOrDefault(a => a.Name == dependancy.ToActivity.Name);
+            var source = Activities.FirstOrDefault(a => a.Model.Name == dependancy.FromActivity.Name);
+            var target = Activities.FirstOrDefault(a => a.Model.Name == dependancy.ToActivity.Name);
             var dependancyVM = new DependancyViewModel(source, target, dependancy);
             Dependencies.Add(dependancyVM);
         }

@@ -21,6 +21,9 @@ namespace ProkonDCI.SystemOperation
         //    4. System/ActivityFactoryRole creates new Activity from the info
         //    5. System/ActivityRepositoryRole stores new Activity
         //    6. System/ActivityViewerRole displays Activity on Screen
+        // Extension
+        // 3.a User provides bad data info: duplicated name, non numberic values...
+        //    4.a System/MessageBox reports error 
         #endregion
 
         #region Roles and RoleInterfaces
@@ -42,6 +45,7 @@ namespace ProkonDCI.SystemOperation
         {
             void AddActivity(Activity activity);
             void ActivityPositionFor(Activity activity, Point p);
+            Activity ActivityNamed(string name);
         }
 
         internal ActivityViewerRole ActivityViewer { get; private set; }
@@ -117,10 +121,17 @@ namespace ProkonDCI.SystemOperation
         {
             var c = Context.Current<ActivityAdding>();
 
-            var newActivity = c.ActivityFactory.CreateActivity(name, duration, resource);
+            if (c.ActivityRepository.ActivityNamed(name) == null)
+            {
 
-            c.ActivityRepository.AddNewActivity(newActivity, c.AtPos);
+                var newActivity = c.ActivityFactory.CreateActivity(name, duration, resource);
 
+                c.ActivityRepository.AddNewActivity(newActivity, c.AtPos);
+            }
+            else
+            {
+                MessageBox.Show("There is an acitivty with the same name.", "Error");
+            }
         }
     }
 

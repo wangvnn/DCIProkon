@@ -20,14 +20,13 @@ namespace ProkonDCI.Presentation.ViewModel
             new RoutedUICommand("To delete activity", "Delete Activity", typeof(ActivityRoutedCommands));
     }
 
-    public class ActivityViewModel : ObservableObject
+    public class ActivityViewModel : ViewModelBase
     {
         public ActivityViewModel(ActivityDependencyGraph graph, Activity activity)
         {
             Graph = graph;
             Model = activity;
         }      
-
 
         private ActivityDependencyGraph Graph { get; set; }
         private Activity _Model = null;
@@ -41,25 +40,7 @@ namespace ProkonDCI.Presentation.ViewModel
             {
                 if (_Model != value)
                 {
-                    _Model = value;
-                    Name = _Model.Name;                    
-                }
-            }
-        }
-
-        private string _activityName = "";
-        public string Name 
-        {
-            get
-            {
-                return _activityName;
-            }
-            set
-            {
-                if (_activityName != value)
-                {
-                    _activityName = value;
-                    RaisePropertyChangedEvent("Name");
+                    _Model = value;              
                 }
             }
         }
@@ -90,10 +71,6 @@ namespace ProkonDCI.Presentation.ViewModel
                 Graph.ActivityPositionFor(Model, new Point(p.X, value));
                 RaisePropertyChangedEvent("PositionY");
             }
-        }
-
-        public bool IsSelectable { 
-            get { return true; }
         }
 
         public int NodeWidth

@@ -56,6 +56,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Presentation\View\ActivityDependancyGraphView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Presentation\View\DependantInfoDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -74,7 +78,6 @@
     </Compile>
     <Compile Include="Domain\Data\Activity.cs" />
     <Compile Include="Domain\Data\ActivityDependencyGraph.cs" />
-    <Compile Include="Domain\Data\CommonTypes.cs" />
     <Compile Include="Domain\Data\Dependancy.cs" />
     <Compile Include="Domain\Data\Resource.cs" />
     <Compile Include="Infrastructure\WPF\CommandSink.cs" />
@@ -87,6 +90,9 @@
     <Compile Include="Presentation\ViewModel\ActivityDependancyViewModel.cs" />
     <Compile Include="Presentation\ViewModel\DependancyViewModel.cs" />
     <Compile Include="Presentation\ViewModel\ActivityViewModel.cs" />
+    <Compile Include="Presentation\View\ActivityDependancyGraphView.xaml.cs">
+      <DependentUpon>ActivityDependancyGraphView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Presentation\View\DependantInfoDialog.xaml.cs">
       <DependentUpon>DependantInfoDialog.xaml</DependentUpon>
     </Compile>
