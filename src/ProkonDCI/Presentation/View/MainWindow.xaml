@@ -18,9 +18,7 @@
         </Grid.RowDefinitions>
         <Border Grid.Column="0" Grid.Row="0" BorderBrush="Black" BorderThickness="1">
             <TextBlock xml:space="preserve">
-                <TextBlock.Text>
-Prokon:
-Planning System
+                <TextBlock.Text>Prokon: Planning System
                 </TextBlock.Text>
             </TextBlock>
         </Border>
@@ -33,7 +31,18 @@ Planning System
             </TextBlock>
             <TextBlock Text="{Binding SelectedItem.Model.Name, StringFormat=Name: {0}}" />
             <TextBlock Text="{Binding SelectedItem.Model.Duration, StringFormat=Duration: {0}}" />
-            <TextBlock Text="{Binding SelectedItem.Model.ResourceRequirement, StringFormat=ResourceRequirement: {0}}" />            
+            <TextBlock Text="{Binding SelectedItem.Model.ResourceRequirement, StringFormat=ResourceRequirement: {0}}" />
+            <Border Background="Black" BorderBrush="Black" BorderThickness="1" Width="500" Height="2"></Border>
+            <TextBlock>
+              <TextBlock.Text>
+                Project Settings:
+              </TextBlock.Text>
+            </TextBlock>
+            <TextBlock>Project Start:</TextBlock>
+            <TextBox Text="{Binding Path=ProjectStart, Mode=TwoWay}"></TextBox>
+            <TextBlock>Project End:</TextBlock>
+            <TextBox Text="{Binding Path=ProjectFinish, Mode=TwoWay}"></TextBox>
+            <Button Command="{Binding RunCommand}">Run</Button>
           </StackPanel>
         </Border>
         <Border Grid.Column="1" Grid.Row="0" 
@@ -42,12 +51,33 @@ Planning System
           <view:ActivityDependancyGraphView/>
         </Border>
         <Border Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="4" BorderBrush="Black" BorderThickness="1">
-            <TextBlock xml:space="preserve">
-                <TextBlock.Text>
-                    Prokon:
-Planning System
-                </TextBlock.Text>
-            </TextBlock>
+          <Grid>
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="*"/>
+              <ColumnDefinition Width="*"/>
+              <ColumnDefinition Width="*"/>
+              <ColumnDefinition Width="*"/>
+              <ColumnDefinition Width="*"/>
+              <ColumnDefinition Width="*"/>
+              <ColumnDefinition Width="*"/>
+              <ColumnDefinition Width="*"/>
+              <ColumnDefinition Width="*"/>
+              <ColumnDefinition Width="*"/>              
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+              <RowDefinition Height="*"/>
+              <RowDefinition Height="*"/>
+              <RowDefinition Height="*"/>
+              <RowDefinition Height="*"/>
+              <RowDefinition Height="*"/>
+              <RowDefinition Height="*"/>
+              <RowDefinition Height="*"/>
+              <RowDefinition Height="*"/>
+              <RowDefinition Height="*"/>
+              <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>      
+            
+          </Grid>
         </Border>
         <Border Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="4" BorderBrush="Black" BorderThickness="1">
             <TextBlock xml:space="preserve">

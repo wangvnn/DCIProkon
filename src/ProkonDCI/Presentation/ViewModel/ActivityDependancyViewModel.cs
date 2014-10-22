@@ -22,7 +22,41 @@ namespace ProkonDCI.Presentation.ViewModel
             Model = model;
             SetupChildrenViewModel();
             RegisterRoutedCommandHandlers();           
-        }        
+        }
+
+        #region Project Settings
+        public string ProjectStart
+        {
+            get 
+            {
+                return Model.ProjectStart.ToString();
+            }
+            set 
+            { 
+                int projectStart;
+                if (int.TryParse(value, out projectStart))
+                {
+                    Model.ProjectStart = projectStart;
+                }                
+            }
+        }
+
+        public string ProjectFinish
+        {
+            get
+            {
+                return Model.ProjectFinish.ToString();
+            }
+            set
+            {
+                int projectFinish;
+                if (int.TryParse(value, out projectFinish))
+                {
+                    Model.ProjectFinish = projectFinish;
+                }
+            }
+        }
+        #endregion
 
         #region Child ViewModel
 
@@ -87,6 +121,20 @@ namespace ProkonDCI.Presentation.ViewModel
         #endregion
 
         #region Commands
+
+        public ICommand RunCommand
+        {
+            get
+            {
+                return new DelegateCommand(Run);
+            }
+        }
+
+        public void Run()
+        {
+            Model.DoPlanning();
+        }
+
 
         public ICommand AddActivityCommand
         {

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProkonDCI.Domain.Operation;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,9 @@ using System.Threading.Tasks;
 
 namespace ProkonDCI.Domain.Data
 {
-    public class Activity
+    public class Activity:
+        FrontLoad.UnPlannedActivityRole,
+        BackLoad.UnPlannedActivityRole
     {
         public Activity(string name, int duration, int resourceRequirement)
         {
@@ -45,7 +48,7 @@ namespace ProkonDCI.Domain.Data
         }
         public int LateStart
         {
-            get { return _lateFinish-_duration + 1; }
+            get { return _lateFinish > 0 ? _lateFinish - _duration + 1 : 0; }
         }
 
         private int _lateFinish;
@@ -68,7 +71,7 @@ namespace ProkonDCI.Domain.Data
         }
         public int PlannedFinish
         {
-            get { return _plannedStart+_duration -1; }
+            get { return _plannedStart > 0 ? _plannedStart + _duration - 1 : 0; }
         }
 
     }

@@ -1,4 +1,5 @@
-﻿using ProkonDCI.SystemOperation;
+﻿using ProkonDCI.Domain.Operation;
+using ProkonDCI.SystemOperation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +20,21 @@ namespace ProkonDCI.Domain.Data
         {
         }
 
+        #region Operations
+        public void DoPlanning()
+        {
+            new BackLoad(this).Execute();
+            new FrontLoad(this).Execute();
+            //new ResourceAllocation().Execute();
+        }
+        #endregion
+
         #region Properties
+        public List<Activity> AllActivities
+        {
+            get { return _activities;  }
+        }
+
         public Resource Resource
         {
             get { return _resource; }
@@ -121,6 +136,6 @@ namespace ProkonDCI.Domain.Data
         private Dictionary<string, Point> _activityPositions = new Dictionary<string, Point>();
         private List<Dependancy> _dependancies = new List<Dependancy>();
         private Resource _resource = new Resource();
-#       endregion
+        #endregion
     }
 }

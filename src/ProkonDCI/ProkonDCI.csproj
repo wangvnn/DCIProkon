@@ -80,6 +80,8 @@
     <Compile Include="Domain\Data\ActivityDependencyGraph.cs" />
     <Compile Include="Domain\Data\Dependancy.cs" />
     <Compile Include="Domain\Data\Resource.cs" />
+    <Compile Include="Domain\Operation\BackLoad.cs" />
+    <Compile Include="Domain\Operation\FrontLoad.cs" />
     <Compile Include="Infrastructure\WPF\CommandSink.cs" />
     <Compile Include="Infrastructure\WPF\CommandSinkBinding.cs" />
     <Compile Include="Presentation\Controls\ArrowEnds.cs" />
@@ -135,9 +137,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Domain\Operation\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\Ivento.Dci\Ivento.Dci.csproj">
       <Project>{36548bcd-2e27-4f85-9e02-3d742b4ea9c0}</Project>
