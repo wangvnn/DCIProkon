@@ -18,7 +18,7 @@ namespace ProkonDCI.Domain.Operation
         //    2. System/BackLoader plans back load
         //    3. BackLoader sets all Activities' late finish to unplanned
         //    4. BackLoader finds the Activity that is unplanned 
-        //       and has its predecessors unplanned too
+        //       but all of its successors has been planned
         //    5. BackLoader asks the above Activity to backload itself
         //    6. The Activity then finds the 'min late start' from its Successors
         //      6.a If it cannot find the 'min late start' then its late Finish = ProjectFinish
