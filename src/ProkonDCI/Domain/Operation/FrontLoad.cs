@@ -18,7 +18,7 @@ namespace ProkonDCI.Domain.Operation
         //    2. System/FrontLoader plans front load
         //    3. FrontLoader sets all Activities' early start to unplanned
         //    4. FrontLoader finds the Activity that is unplanned 
-        //       and has its predecessors unplanned too
+        //       but all of its predecessors has beed planned 
         //    5. FrontLoader asks the above Activity to frontload itself
         //    6. The Activity then finds the 'max early finish' from its predecessors
         //      6.a If it cannot find the 'max early finish' then its early start = ProjectStart
