@@ -1,0 +1,194 @@
+﻿<UserControl x:Class="ProkonDCI.Presentation.View.ActivityDependancyGanttChartView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:arrow="clr-namespace:Petzold.Media2D"
+             xmlns:behaviour="clr-namespace:ProkonDCI.Presentation.UIBehaviours"  
+             xmlns:viewmodel="clr-namespace:ProkonDCI.Presentation.ViewModel" 
+             xmlns:jas="clr-namespace:WPF.JoshSmith.Controls"                         
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+  <UserControl.Resources>
+    <Style x:Key="NodeBorderStyle1" TargetType="{x:Type Border}">
+      <Setter Property="Background" Value="LightGreen" />
+      <Setter Property="Opacity" Value="0.5" />
+      <Setter Property="BorderBrush" Value="Gray" />
+      <Setter Property="BorderThickness" Value="3" />
+      <Setter Property="BorderBrush" Value="Gray" />
+      <Setter Property="Padding" Value="4" />
+      <Setter Property="TextElement.FontWeight" Value="Normal" />
+    </Style>
+    <Style x:Key="NodeBorderStyle2" TargetType="{x:Type Border}">
+      <Setter Property="Background" Value="LightBlue" />
+      <Setter Property="Opacity" Value="0.5" />
+      <Setter Property="BorderBrush" Value="Gray" />
+      <Setter Property="BorderThickness" Value="3" />
+      <Setter Property="BorderBrush" Value="Gray" />
+      <Setter Property="Padding" Value="4" />
+      <Setter Property="TextElement.FontWeight" Value="Normal" />
+    </Style>
+  </UserControl.Resources>  
+  
+  <Grid>
+    <ListBox Background="Transparent"
+                  ItemsSource="{Binding Path=Activities, Mode=OneTime}"
+                  SelectedItem="{Binding Path=SelectedItem, Mode=TwoWay}"
+                  HorizontalAlignment="Stretch"
+                  VerticalAlignment="Stretch"
+                  ScrollViewer.VerticalScrollBarVisibility="Disabled">
+      <ListBox.Resources>
+        <DataTemplate DataType="{x:Type viewmodel:ActivityViewModel}">
+          <StackPanel>
+            <Border Style="{StaticResource NodeBorderStyle1}">
+              <TextBlock
+                FontSize="8"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Text="{Binding Path=Model.Name, Mode=OneWay}"
+                TextAlignment="Center"/>
+            </Border>
+          </StackPanel>
+        </DataTemplate>       
+      </ListBox.Resources>
+      <ListBox.ItemsPanel>
+        <ItemsPanelTemplate>
+          <Grid>
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="*"/>
+              <ColumnDefinition Width="*"/>
+              <ColumnDefinition Width="*"/>
+              <ColumnDefinition Width="*"/>
+              <ColumnDefinition Width="*"/>
+              <ColumnDefinition Width="*"/>
+              <ColumnDefinition Width="*"/>
+              <ColumnDefinition Width="*"/>
+              <ColumnDefinition Width="*"/>
+              <ColumnDefinition Width="*"/>
+              <ColumnDefinition Width="*"/>
+              <ColumnDefinition Width="*"/>
+              <ColumnDefinition Width="*"/>
+              <ColumnDefinition Width="*"/>
+              <ColumnDefinition Width="*"/>
+              <ColumnDefinition Width="*"/>
+              <ColumnDefinition Width="*"/>
+              <ColumnDefinition Width="*"/>
+              <ColumnDefinition Width="*"/>
+              <ColumnDefinition Width="*"/>              
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+              <RowDefinition Height="*"/>
+              <RowDefinition Height="*"/>
+              <RowDefinition Height="*"/>
+              <RowDefinition Height="*"/>
+              <RowDefinition Height="*"/>
+              <RowDefinition Height="*"/>
+              <RowDefinition Height="*"/>
+              <RowDefinition Height="*"/>
+              <RowDefinition Height="*"/>
+              <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+          </Grid>
+        </ItemsPanelTemplate>
+      </ListBox.ItemsPanel>
+
+      <ListBox.ItemContainerStyle>
+        <Style TargetType="{x:Type ListBoxItem}">
+          <Setter Property="Grid.Row" Value="{Binding Path=Index, Mode=OneWay}" />
+          <Setter Property="Grid.Column" Value="{Binding Path=Model.LateStart, Mode=OneWay}" />
+          <Setter Property="Grid.ColumnSpan" Value="{Binding Path=Model.ResourceRequirement, Mode=OneWay}" />
+
+          <Setter Property="SnapsToDevicePixels" Value="true"/>
+          <Setter Property="OverridesDefaultStyle" Value="true"/>
+          <Setter Property="Template">
+            <Setter.Value>
+              <ControlTemplate TargetType="ListBoxItem">
+                <ContentPresenter />
+              </ControlTemplate>
+            </Setter.Value>
+          </Setter>
+        </Style>
+      </ListBox.ItemContainerStyle>
+    </ListBox>
+    <ListBox Background="Transparent"
+                  ItemsSource="{Binding Path=Activities, Mode=OneTime}"
+                  SelectedItem="{Binding Path=SelectedItem, Mode=TwoWay}"
+                  HorizontalAlignment="Stretch"
+                  VerticalAlignment="Stretch"
+             ScrollViewer.VerticalScrollBarVisibility="Disabled">
+      <ListBox.Resources>
+        <DataTemplate DataType="{x:Type viewmodel:ActivityViewModel}">
+          <StackPanel>
+            <Border Style="{StaticResource NodeBorderStyle2}">
+              <TextBlock
+                FontSize="8"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Text="{Binding Path=Model.Name, Mode=OneWay}"
+                TextAlignment="Center"/>
+            </Border>
+          </StackPanel>
+        </DataTemplate>
+      </ListBox.Resources>
+      <ListBox.ItemsPanel>
+        <ItemsPanelTemplate>
+          <Grid>
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="*"/>
+              <ColumnDefinition Width="*"/>
+              <ColumnDefinition Width="*"/>
+              <ColumnDefinition Width="*"/>
+              <ColumnDefinition Width="*"/>
+              <ColumnDefinition Width="*"/>
+              <ColumnDefinition Width="*"/>
+              <ColumnDefinition Width="*"/>
+              <ColumnDefinition Width="*"/>
+              <ColumnDefinition Width="*"/>
+              <ColumnDefinition Width="*"/>
+              <ColumnDefinition Width="*"/>
+              <ColumnDefinition Width="*"/>
+              <ColumnDefinition Width="*"/>
+              <ColumnDefinition Width="*"/>
+              <ColumnDefinition Width="*"/>
+              <ColumnDefinition Width="*"/>
+              <ColumnDefinition Width="*"/>
+              <ColumnDefinition Width="*"/>
+              <ColumnDefinition Width="*"/>              
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+              <RowDefinition Height="*"/>
+              <RowDefinition Height="*"/>
+              <RowDefinition Height="*"/>
+              <RowDefinition Height="*"/>
+              <RowDefinition Height="*"/>
+              <RowDefinition Height="*"/>
+              <RowDefinition Height="*"/>
+              <RowDefinition Height="*"/>
+              <RowDefinition Height="*"/>
+              <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+          </Grid>
+        </ItemsPanelTemplate>
+      </ListBox.ItemsPanel>
+
+      <ListBox.ItemContainerStyle>
+        <Style TargetType="{x:Type ListBoxItem}">
+          <Setter Property="Grid.Row" Value="{Binding Path=Index, Mode=OneWay}" />
+          <Setter Property="Grid.Column" Value="{Binding Path=Model.EarlyStart, Mode=OneWay}" />
+          <Setter Property="Grid.ColumnSpan" Value="{Binding Path=Model.ResourceRequirement, Mode=OneWay}" />
+
+          <Setter Property="SnapsToDevicePixels" Value="true"/>
+          <Setter Property="OverridesDefaultStyle" Value="true"/>
+          <Setter Property="Template">
+            <Setter.Value>
+              <ControlTemplate TargetType="ListBoxItem">
+                <ContentPresenter />
+              </ControlTemplate>
+            </Setter.Value>
+          </Setter>
+        </Style>
+      </ListBox.ItemContainerStyle>
+    </ListBox>
+  </Grid>
+
+</UserControl>

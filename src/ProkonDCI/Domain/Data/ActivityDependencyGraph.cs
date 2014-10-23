@@ -40,14 +40,14 @@ namespace ProkonDCI.Domain.Data
             get { return _resource; }
             private set { _resource = value; }
         }
-        private int _projectStart = 0;
+        private int _projectStart = 1;
 
         public int ProjectStart
         {
             get { return _projectStart; }
             set { _projectStart = value; }
         }
-        private int _projectFinish = 0;
+        private int _projectFinish = 10;
 
         public int ProjectFinish
         {

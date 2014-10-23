@@ -82,5 +82,15 @@ namespace ProkonDCI.Presentation.ViewModel
         {
             get { return 30; }
         }
+
+        public int Index
+        {
+            get { return Graph.AllActivities.IndexOf(Model);  }
+        }
+
+        public void Refresh()
+        {
+            RaisePropertyChangedEvent("Model");
+        }
     }
 }

@@ -66,6 +66,7 @@ namespace ProkonDCI.Presentation.ViewModel
         }
         private CompositeCollection _ActivityDependancyGraph;
 
+
         public ObservableCollection<ActivityViewModel> _activities = new ObservableCollection<ActivityViewModel>();
         public ObservableCollection<ActivityViewModel> Activities
         {
@@ -133,6 +134,10 @@ namespace ProkonDCI.Presentation.ViewModel
         public void Run()
         {
             Model.DoPlanning();
+            foreach (var acvitivyVM in Activities)
+            {
+                acvitivyVM.Refresh();
+            }
         }
 
 

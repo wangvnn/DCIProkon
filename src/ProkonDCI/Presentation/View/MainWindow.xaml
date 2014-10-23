@@ -51,33 +51,8 @@
           <view:ActivityDependancyGraphView/>
         </Border>
         <Border Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="4" BorderBrush="Black" BorderThickness="1">
-          <Grid>
-            <Grid.ColumnDefinitions>
-              <ColumnDefinition Width="*"/>
-              <ColumnDefinition Width="*"/>
-              <ColumnDefinition Width="*"/>
-              <ColumnDefinition Width="*"/>
-              <ColumnDefinition Width="*"/>
-              <ColumnDefinition Width="*"/>
-              <ColumnDefinition Width="*"/>
-              <ColumnDefinition Width="*"/>
-              <ColumnDefinition Width="*"/>
-              <ColumnDefinition Width="*"/>              
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-              <RowDefinition Height="*"/>
-              <RowDefinition Height="*"/>
-              <RowDefinition Height="*"/>
-              <RowDefinition Height="*"/>
-              <RowDefinition Height="*"/>
-              <RowDefinition Height="*"/>
-              <RowDefinition Height="*"/>
-              <RowDefinition Height="*"/>
-              <RowDefinition Height="*"/>
-              <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>      
-            
-          </Grid>
+          <view:ActivityDependancyGanttChartView  HorizontalAlignment="Stretch"
+                  VerticalAlignment="Stretch"/>
         </Border>
         <Border Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="4" BorderBrush="Black" BorderThickness="1">
             <TextBlock xml:space="preserve">

@@ -32,7 +32,7 @@
   </UserControl.Resources>  
   
   <StackPanel>
-    <ListBox Background="LightGray"
+    <ListBox Background="Transparent"
                   ItemsSource="{Binding Path=ActivityDependancyGraph, Mode=OneTime}"
                   SelectedItem="{Binding Path=SelectedItem, Mode=TwoWay}"
                   Height="500"
@@ -84,7 +84,7 @@
           <jas:DragCanvas x:Name="pageCanvas" Margin="0"
                           HorizontalAlignment="Stretch"
                           VerticalAlignment="Stretch"
-                          Background="Cyan">
+                          Background="Transparent">
             <jas:DragCanvas.ContextMenu>
               <ContextMenu x:Name="pageCanvasContextMenu"
                            behaviour:TrackMouseBehaviour.TrackOpenLocation="True">

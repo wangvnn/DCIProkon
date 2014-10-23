@@ -56,6 +56,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Presentation\View\ActivityDependancyGanttChartView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Presentation\View\ActivityDependancyGraphView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -92,6 +96,9 @@
     <Compile Include="Presentation\ViewModel\ActivityDependancyViewModel.cs" />
     <Compile Include="Presentation\ViewModel\DependancyViewModel.cs" />
     <Compile Include="Presentation\ViewModel\ActivityViewModel.cs" />
+    <Compile Include="Presentation\View\ActivityDependancyGanttChartView.xaml.cs">
+      <DependentUpon>ActivityDependancyGanttChartView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Presentation\View\ActivityDependancyGraphView.xaml.cs">
       <DependentUpon>ActivityDependancyGraphView.xaml</DependentUpon>
     </Compile>
