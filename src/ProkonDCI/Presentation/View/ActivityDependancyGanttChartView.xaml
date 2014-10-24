@@ -28,6 +28,7 @@
       <Setter Property="Padding" Value="4" />
       <Setter Property="TextElement.FontWeight" Value="Normal" />
     </Style>
+    
   </UserControl.Resources>  
   
   <Grid>
@@ -53,7 +54,7 @@
       </ListBox.Resources>
       <ListBox.ItemsPanel>
         <ItemsPanelTemplate>
-          <Grid>
+          <Grid ShowGridLines="True">
             <Grid.ColumnDefinitions>
               <ColumnDefinition Width="*"/>
               <ColumnDefinition Width="*"/>
@@ -110,6 +111,7 @@
         </Style>
       </ListBox.ItemContainerStyle>
     </ListBox>
+   
     <ListBox Background="Transparent"
                   ItemsSource="{Binding Path=Activities, Mode=OneTime}"
                   SelectedItem="{Binding Path=SelectedItem, Mode=TwoWay}"
@@ -189,6 +191,7 @@
         </Style>
       </ListBox.ItemContainerStyle>
     </ListBox>
+   
   </Grid>
 
 </UserControl>

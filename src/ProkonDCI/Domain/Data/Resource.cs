@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProkonDCI.Domain.Operation;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,8 @@ using System.Threading.Tasks;
 
 namespace ProkonDCI.Domain.Data
 {
-    public class Resource
+    public class Resource :
+        ResourceAllocation.ResourceManagerRole
     {
         public Resource()
         {
@@ -28,6 +30,11 @@ namespace ProkonDCI.Domain.Data
         {
             get { return _allocations; }
             private set { _allocations = value; }
+        }
+
+        public void Reset()
+        {
+            Allocations = new Dictionary<int, List<Activity>>();
         }
     }
 }

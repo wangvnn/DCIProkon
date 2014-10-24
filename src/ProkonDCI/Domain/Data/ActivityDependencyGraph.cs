@@ -25,7 +25,7 @@ namespace ProkonDCI.Domain.Data
         {
             new BackLoad(this).Execute();
             new FrontLoad(this).Execute();
-            //new ResourceAllocation().Execute();
+            new ResourceAllocation(this).Execute();
         }
         #endregion
 

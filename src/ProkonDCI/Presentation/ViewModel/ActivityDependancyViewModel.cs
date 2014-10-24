@@ -85,6 +85,15 @@ namespace ProkonDCI.Presentation.ViewModel
             }
         }
 
+        public ObservableCollection<ResourceViewModel> _resources = new ObservableCollection<ResourceViewModel>();
+        public ObservableCollection<ResourceViewModel> Resources
+        {
+            get
+            {
+                return _resources;
+            }
+        }
+
         private ActivityViewModel _SelectedItem;
         public ActivityViewModel SelectedItem 
         { 
@@ -134,9 +143,29 @@ namespace ProkonDCI.Presentation.ViewModel
         public void Run()
         {
             Model.DoPlanning();
+            
             foreach (var acvitivyVM in Activities)
             {
                 acvitivyVM.Refresh();
+            }
+
+            RefreshResourceAllocation();
+        }
+
+        private void RefreshResourceAllocation()
+        {
+            Resources.Clear();
+
+            for (int i=Model.ProjectStart; i <= Model.ProjectFinish; ++i)
+            {
+                var allocation = Model.Resource.AllocationAt(i);
+                for (int j=0; j < allocation.Count; ++j)
+                {
+                    Resources.Add(new ResourceViewModel(
+                                        allocation[j].Name,
+                                        j,
+                                        i));
+                }
             }
         }
 

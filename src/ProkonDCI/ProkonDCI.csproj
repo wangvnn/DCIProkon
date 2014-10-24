@@ -56,6 +56,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Presentation\View\ResourceAllocationView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Presentation\View\ActivityDependancyGanttChartView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -86,6 +90,7 @@
     <Compile Include="Domain\Data\Resource.cs" />
     <Compile Include="Domain\Operation\BackLoad.cs" />
     <Compile Include="Domain\Operation\FrontLoad.cs" />
+    <Compile Include="Domain\Operation\ResourceAllocation.cs" />
     <Compile Include="Infrastructure\WPF\CommandSink.cs" />
     <Compile Include="Infrastructure\WPF\CommandSinkBinding.cs" />
     <Compile Include="Presentation\Controls\ArrowEnds.cs" />
@@ -94,8 +99,12 @@
     <Compile Include="Presentation\Controls\DragCanvas.cs" />
     <Compile Include="Presentation\UIBehaviours\TrackMouseBehaviour.cs" />
     <Compile Include="Presentation\ViewModel\ActivityDependancyViewModel.cs" />
+    <Compile Include="Presentation\ViewModel\ResourceViewModel.cs" />
     <Compile Include="Presentation\ViewModel\DependancyViewModel.cs" />
     <Compile Include="Presentation\ViewModel\ActivityViewModel.cs" />
+    <Compile Include="Presentation\View\ResourceAllocationView.xaml.cs">
+      <DependentUpon>ResourceAllocationView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Presentation\View\ActivityDependancyGanttChartView.xaml.cs">
       <DependentUpon>ActivityDependancyGanttChartView.xaml</DependentUpon>
     </Compile>
