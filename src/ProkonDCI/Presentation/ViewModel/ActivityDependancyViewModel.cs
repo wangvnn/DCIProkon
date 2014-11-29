@@ -10,12 +10,12 @@ using System.Collections.ObjectModel;
 using System.Windows;
 using ProkonDCI.Presentation.View;
 using System.Windows.Data;
+using ImpromptuInterface;
+using ImpromptuInterface.Dynamic;
 
 namespace ProkonDCI.Presentation.ViewModel
 {
-    public class ActivityDependancyViewModel : ViewModelBase,
-        ActivityAdding.ActivityViewerRole,
-        DependancyAdding.DependancyViewerRole
+    public class ActivityDependancyViewModel : ViewModelBase
     {
         public ActivityDependancyViewModel(ActivityDependencyGraph model)
         {
@@ -180,7 +180,9 @@ namespace ProkonDCI.Presentation.ViewModel
 
         public void AddActivity(Point pos)
         {
-            new ActivityAdding(new ActivityInfoDialog(), pos, Model, Model, this).Execute();
+            var viewer = this.ActLike<ActivityAdding.ActivityViewerRole>();
+    
+            new ActivityAdding(new ActivityInfoDialog(), pos, Model, Model, viewer).Execute();
         }
 
         private void RegisterRoutedCommandHandlers()
@@ -209,7 +211,8 @@ namespace ProkonDCI.Presentation.ViewModel
 
         public void AddDependancy(ActivityViewModel activityVM)
         {
-            new DependancyAdding(activityVM.Model, new DependantInfoDialog(), Model, Model, this).Execute();
+            var viewer = this.ActLike<DependancyAdding.DependancyViewerRole>();
+            new DependancyAdding(activityVM.Model, new DependantInfoDialog(), Model, Model, viewer).Execute();
         }
 
         public void DeleteAcitivy(ActivityViewModel activityVM)
